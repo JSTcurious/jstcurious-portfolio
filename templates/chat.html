@@ -1,9 +1,51 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>JSTcurious | Chatbot</title>
+  <meta charset="UTF-8" />
+  <title>AI Chat | JSTcurious</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <iframe src="https://huggingface.co/spaces/thakurjitu/jstcurious-chatbot" width="100%" height="800" frameborder="0"></iframe>
+  <div class="chatbox">
+    <h2>🤖 My AI Chatbot</h2>
+    <div id="chatlog" class="chatlog"></div>
+    <input type="text" id="inputBox" placeholder="Ask me anything..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const inputBox = document.getElementById("inputBox");
+      const chatlog = document.getElementById("chatlog");
+      const userMessage = inputBox.value;
+      if (!userMessage) return;
+
+      const userMsgEl = document.createElement("div");
+      userMsgEl.className = "msg user";
+      userMsgEl.textContent = userMessage;
+      chatlog.appendChild(userMsgEl);
+      inputBox.value = "";
+
+      const botMsgEl = document.createElement("div");
+      botMsgEl.className = "msg bot";
+      botMsgEl.textContent = "Thinking...";
+      chatlog.appendChild(botMsgEl);
+
+      try {
+        const response = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ inputs: userMessage })
+        });
+        const result = await response.json();
+        botMsgEl.textContent = result?.[0]?.generated_text || "Sorry, I didn't catch that.";
+      } catch (e) {
+        botMsgEl.textContent = "Error reaching backend.";
+      }
+
+      chatlog.scrollTop = chatlog.scrollHeight;
+    }
+  </script>
 </body>
 </html>

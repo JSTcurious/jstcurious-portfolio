@@ -1,21 +1,22 @@
 
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-import httpx
-import os
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import JSONResponse
+import httpx, os
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
-def root():
-    return FileResponse("static/index.html")
+def homepage(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/chat")
-def serve_chat():
-    return FileResponse("static/chat.html")
+def chatpage(request: Request):
+    return templates.TemplateResponse("chat.html", {"request": request})
 
 @app.post("/chat")
 async def chat_api(request: Request):
@@ -23,9 +24,7 @@ async def chat_api(request: Request):
     prompt = body.get("inputs", "")
     hf_token = os.getenv("HF_TOKEN")
 
-    headers = {
-        "Authorization": f"Bearer {hf_token}"
-    }
+    headers = {"Authorization": f"Bearer {hf_token}"}
     payload = {
         "inputs": prompt,
         "parameters": {
