@@ -1,20 +1,44 @@
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+import httpx
 import os
 
 app = FastAPI()
 
-# Mount the static directory
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Serve the homepage
 @app.get("/")
-def read_root():
+def root():
     return FileResponse("static/index.html")
 
-# Serve the chat page
 @app.get("/chat")
 def serve_chat():
     return FileResponse("static/chat.html")
+
+@app.post("/chat")
+async def chat_api(request: Request):
+    body = await request.json()
+    prompt = body.get("inputs", "")
+    hf_token = os.getenv("HF_TOKEN")
+
+    headers = {
+        "Authorization": f"Bearer {hf_token}"
+    }
+    payload = {
+        "inputs": prompt,
+        "parameters": {
+            "max_new_tokens": 256,
+            "temperature": 0.7
+        }
+    }
+
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
+            headers=headers,
+            json=payload
+        )
+
+    return JSONResponse(response.json())
