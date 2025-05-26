@@ -7,27 +7,35 @@ import httpx, os
 
 app = FastAPI()
 
-# CORS fix
+# CORS setup for frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can restrict to ["https://jstcuriousai42.com"] later
+    allow_origins=["*"],  # Can be restricted to your domain if needed
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Static & template setup
+# Mount static assets and templates
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+# Route: Homepage
 @app.get("/")
 def homepage(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+# Route: Chat page
 @app.get("/chat")
 def chatpage(request: Request):
     return templates.TemplateResponse("chat.html", {"request": request})
 
+# Route: Projects page
+@app.get("/projects")
+def projectspage(request: Request):
+    return templates.TemplateResponse("projects.html", {"request": request})
+
+# POST endpoint: Chatbot backend call to HF Inference API
 @app.post("/chat")
 async def chat_api(request: Request):
     body = await request.json()
