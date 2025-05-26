@@ -1,5 +1,5 @@
-
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse
@@ -7,6 +7,16 @@ import httpx, os
 
 app = FastAPI()
 
+# CORS fix
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # You can restrict to ["https://jstcuriousai42.com"] later
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Static & template setup
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -41,3 +51,4 @@ async def chat_api(request: Request):
         )
 
     return JSONResponse(response.json())
+
