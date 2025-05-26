@@ -17,7 +17,7 @@ body {
 .tagline {
   margin-top: 1rem;
   font-size: 1.2rem;
-  color: #aafafa;
+  color: #40e0d0;
 }
 
 .about, .chatbox {
@@ -33,13 +33,14 @@ body {
 }
 
 a {
-  color: #66fcf1;
+  color: #40e0d0;
   text-decoration: none;
   font-weight: bold;
 }
 
 a:hover {
   text-decoration: underline;
+  color: #66fcf1;
 }
 
 .chatlog {
@@ -59,7 +60,7 @@ a:hover {
 
 .msg.bot {
   text-align: left;
-  color: #b2fafa;
+  color: #40e0d0;
 }
 
 input, button {
