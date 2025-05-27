@@ -77,3 +77,13 @@ button {
   color: #003333;
   cursor: pointer;
 }
+
+/* Enhancements for paragraph and list readability */
+p {
+  line-height: 1.8;
+}
+
+li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
