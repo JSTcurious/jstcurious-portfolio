@@ -2,17 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chatbot | JSTcuriousAI42</title>
+  <title>Chatbot | JSTcuriousAI42 </title>
   <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      text-align: center;
+      color: #40e0d0;
+    }
+    nav.navbar a {
+      color: #40e0d0;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 0 0.5rem;
+    }
+    nav.navbar a:hover {
+      color: #66fcf1;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <img src="/static/logo.png" alt="JSTcurious Logo" style="width: 6.5%; max-width: 60px;" />
+    <img src="/static/logo.png" alt="JSTcurious Logo" style="width: 13%; max-width: 120px;" />
+
     <nav class="navbar">
       <a href="/">Home</a> |
-      <a href="/chat">Chatbot</a> |
+      <a href="/chat" target="_self">Chatbot</a> |
       <a href="/projects">Projects</a>
     </nav>
+    
     <div class="chatbox" style="text-align: left;">
       <h2>AI42 Chatbot – powered by Mistral-7B on Hugging Face</h2>
       <div id="chatlog" class="chatlog"></div>
