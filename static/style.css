@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #001f1f;
-  color: #40e0d0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background-color: #009999;
+  color: #ffffff;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -11,36 +13,46 @@ body {
   max-width: 800px;
   margin: auto;
   padding: 2rem;
-  text-align: center;
+}
+
+nav.navbar a {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0 0.5rem;
+  text-decoration: none;
+}
+
+nav.navbar a:hover {
+  color: #ffeb3b;
 }
 
 .tagline {
   margin-top: 1rem;
   font-size: 1.2rem;
-  color: #40e0d0;
+  color: #ffffff;
 }
 
 .about, .chatbox {
-  background-color: #003333;
+  background-color: #007f7f;
   border-radius: 10px;
   padding: 1.5rem;
   margin-top: 2rem;
-  box-shadow: 0 0 15px rgba(64, 224, 208, 0.2);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  text-align: left;
 }
 
 .about h2, .chatbox h2 {
-  color: #40e0d0;
+  color: #ffffff;
 }
 
 a {
-  color: #40e0d0;
-  text-decoration: none;
-  font-weight: bold;
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 a:hover {
-  text-decoration: underline;
-  color: #66fcf1;
+  color: #ffeb3b;
 }
 
 .chatlog {
@@ -55,12 +67,12 @@ a:hover {
 
 .msg.user {
   text-align: right;
-  color: #00ffe5;
+  color: #d0fefe;
 }
 
 .msg.bot {
   text-align: left;
-  color: #40e0d0;
+  color: #ffffff;
 }
 
 input, button {
@@ -73,12 +85,12 @@ input, button {
 }
 
 button {
-  background: #40e0d0;
-  color: #003333;
+  background: #ffffff;
+  color: #009999;
+  font-weight: bold;
   cursor: pointer;
 }
 
-/* Enhancements for paragraph and list readability */
 p {
   line-height: 1.8;
 }
